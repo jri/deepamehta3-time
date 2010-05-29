@@ -32,7 +32,9 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Export-Package></Export-Package>
+                        <Export-Package>
+                            de.deepamehta.plugins.time.migrations
+                        </Export-Package>
                         <Private-Package>
                             de.deepamehta.plugins.time
                         </Private-Package>

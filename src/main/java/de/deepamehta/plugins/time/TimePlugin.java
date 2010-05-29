@@ -15,12 +15,18 @@ public class TimePlugin extends DeepaMehtaPlugin {
     // --- Client-Side ---
 
     @Override
+    public int getCodeModelVersion() {
+        return 1;
+    }
+
+    @Override
     public String getClientPlugin() {
         return "dm3_time.js";
     }
 
     // --- Server-Side ---
 
+    @Override
     public void preCreateHook(Topic topic) {
         logger.info("preCreateHook invoked!");
         String time = new Date().toString();
@@ -28,6 +34,7 @@ public class TimePlugin extends DeepaMehtaPlugin {
         topic.setProperty("time_modified", time);
     }
 
+    @Override
     public void preUpdateHook(Topic topic) {
         String time = new Date().toString();
         topic.setProperty("time_modified", time);
