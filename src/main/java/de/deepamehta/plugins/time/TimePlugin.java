@@ -15,7 +15,7 @@ public class TimePlugin extends DeepaMehtaPlugin {
     // --- Client-Side ---
 
     @Override
-    public int getCodeModelVersion() {
+    public int requiredDBModelVersion() {
         return 1;
     }
 
