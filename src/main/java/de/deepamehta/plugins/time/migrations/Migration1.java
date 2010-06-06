@@ -10,8 +10,8 @@ public class Migration1 extends Migration {
 
     public void run() {
         //
-        DataField timeCreatedField = new DataField("time_created");
-        DataField timeModifiedField = new DataField("time_modified");
+        DataField timeCreatedField = new DataField("time_created").setIndexingMode("FULLTEXT_KEY");
+        DataField timeModifiedField = new DataField("time_modified").setIndexingMode("FULLTEXT_KEY");
         //
         for (String typeId : dms.getTopicTypeIds()) {
             dms.addDataField(typeId, timeCreatedField);

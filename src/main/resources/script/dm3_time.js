@@ -12,14 +12,14 @@ function dm3_time() {
 
 
     this.init = function() {
-        $("#searchmode_select").append($("<option>").text("By Time"))
+        $("#searchmode-select").append($("<option>").text("By Time"))
     }
 
     this.search_widget = function(searchmode) {
         if (searchmode == "By Time") {
             return ui.menu("time_select", undefined, [
-                {label: "Last week"},
-                {label: "Last month"}
+                {label: "Last week",  value:  7},
+                {label: "Last month", value: 30}
             ]).dom
         }
     }
@@ -27,17 +27,18 @@ function dm3_time() {
     this.search = function(searchmode) {
         if (searchmode == "By Time") {
             // 1) perform time search
-            var time_mode = ui.menu_item("time_select").label
-            var result = db.view("deepamehta3/dm3-time", {descending: true})
-            // 2) create result topic
-            return create_result_topic(time_mode, result.rows, "TimeSearchResult", function(row) {
-                return {
-                    id:            row.id,
-                    type:          row.value.topic_type,
-                    label:         row.value.topic_label,
-                    time_modified: row.key
-                }
-            })
+            var mode_item = ui.menu_item("time_select")
+            var upper_date = new Date().getTime()
+            var lower_date = upper_date - mode_item.value * 24 * 60 * 60 * 1000
+            var query = "[" + lower_date + " TO " + upper_date + "]"
+            return dms.search_topics(undefined, query, "time_modified", true)
         }
     }
-}
+
+    this.render_topic_list_item = function(topic, list_item) {
+        var time = new Date(parseInt(topic.properties.time_modified))
+        // alert(topic.properties.time_modified + " (" + typeof(topic.properties.time_modified) + ") => " + time)
+        var time_div = $("<div>").addClass("result-item-time").append(time.toLocaleString())
+        return list_item.append(time_div)
+    }
+} 
