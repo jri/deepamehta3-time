@@ -18,7 +18,7 @@ public class TimePlugin extends DeepaMehtaPlugin {
 
     @Override
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
-        logger.info("### Adding timestamp to topic " + topic);
+        logger.info("Adding timestamp to " + topic);
         //
         if (topic.typeId.equals("Topic Type")) {
             DataField timeCreatedField = new DataField("time_created").setIndexingMode("FULLTEXT_KEY");
@@ -42,19 +42,7 @@ public class TimePlugin extends DeepaMehtaPlugin {
 
     @Override
     public void provideDataHook(Topic topic) {
-        logger.info("provideDataHook invoked!");
-        topic.setProperty("time_modified", getService().getTopicProperty(topic.id, "time_modified"));
-    }
-
-    // ---
-
-    @Override
-    public String getClientPlugin() {
-        return "dm3_time.js";
-    }
-
-    @Override
-    public int requiredDBModelVersion() {
-        return 1;
+        logger.fine("Invoking provideDataHook for " + topic);
+        topic.setProperty("time_modified", dms.getTopicProperty(topic.id, "time_modified"));
     }
 }

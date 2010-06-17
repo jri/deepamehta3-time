@@ -1,5 +1,6 @@
 function dm3_time() {
 
+    // FIXME: doctype time_search_result not in use
     doctype_implementation("/de.deepamehta.3-time/script/time_search_result.js")
     css_stylesheet("/de.deepamehta.3-time/style/dm3-time.css")
 
