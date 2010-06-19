@@ -16,6 +16,14 @@ public class TimePlugin extends DeepaMehtaPlugin {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
+
+
+    // ************************
+    // *** Overriding Hooks ***
+    // ************************
+
+
+
     @Override
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
         logger.info("Adding timestamp to " + topic);
@@ -41,8 +49,7 @@ public class TimePlugin extends DeepaMehtaPlugin {
     // ---
 
     @Override
-    public void provideDataHook(Topic topic) {
-        logger.fine("Invoking provideDataHook for " + topic);
+    public void providePropertiesHook(Topic topic) {
         topic.setProperty("time_modified", dms.getTopicProperty(topic.id, "time_modified"));
     }
 }
