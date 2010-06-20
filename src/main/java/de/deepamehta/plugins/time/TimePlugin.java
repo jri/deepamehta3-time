@@ -26,23 +26,36 @@ public class TimePlugin extends DeepaMehtaPlugin {
 
     @Override
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
-        logger.info("Adding timestamp to " + topic);
         //
         if (topic.typeId.equals("Topic Type")) {
-            DataField timeCreatedField = new DataField("time_created").setIndexingMode("FULLTEXT_KEY");
-            DataField timeModifiedField = new DataField("time_modified").setIndexingMode("FULLTEXT_KEY");
+            // Add "time_created" and "time_modified" data fields to the topic type being created.
+            // Note: Topic types created before the time plugin was activated get these fields through the initial
+            // migration. See de.deepamehta.plugins.time.migrations.Migration1
+            //
+            // TODO: Avoid this code doubling by providing a "update type definition" facility.
+            //
+            DataField timeCreatedField = new DataField("time_created");
+            timeCreatedField.setDataType("number");
+            timeCreatedField.setIndexingMode("FULLTEXT_KEY");
+            //
+            DataField timeModifiedField = new DataField("time_modified");
+            timeModifiedField.setDataType("number");
+            timeModifiedField.setIndexingMode("FULLTEXT_KEY");
+            //
             ((TopicType) topic).addDataField(timeCreatedField);
             ((TopicType) topic).addDataField(timeModifiedField);
         }
         //
-        String time = String.valueOf(System.currentTimeMillis());
+        // add a timestamp to the topic being created
+        logger.info("Adding timestamp to " + topic);
+        long time = System.currentTimeMillis();
         topic.setProperty("time_created", time);
         topic.setProperty("time_modified", time);
     }
 
     @Override
     public void preUpdateHook(Topic topic) {
-        String time = String.valueOf(System.currentTimeMillis());
+        long time = System.currentTimeMillis();
         topic.setProperty("time_modified", time);
     }
 

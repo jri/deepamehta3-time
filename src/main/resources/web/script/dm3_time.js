@@ -37,7 +37,7 @@ function dm3_time() {
     }
 
     this.render_topic_list_item = function(topic, list_item) {
-        var time = new Date(parseInt(topic.properties.time_modified))
+        var time = new Date(topic.properties.time_modified)
         // alert(topic.properties.time_modified + " (" + typeof(topic.properties.time_modified) + ") => " + time)
         var time_div = $("<div>").addClass("result-item-time").append(time.toLocaleString())
         return list_item.append(time_div)

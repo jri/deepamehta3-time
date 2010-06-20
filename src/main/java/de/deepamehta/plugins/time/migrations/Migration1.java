@@ -10,9 +10,19 @@ public class Migration1 extends Migration {
 
     @Override
     public void run() {
+        // Add "time_created" and "time_modified" data fields to all existing topic types.
+        // Note: Topic types created after the time plugin is activated get these fields through the preCreateHook().
+        // See de.deepamehta.plugins.time.TimePlugin
         //
-        DataField timeCreatedField = new DataField("time_created").setIndexingMode("FULLTEXT_KEY");
-        DataField timeModifiedField = new DataField("time_modified").setIndexingMode("FULLTEXT_KEY");
+        // TODO: Avoid this code doubling by providing a "update type definition" facility.
+        //
+        DataField timeCreatedField = new DataField("time_created");
+        timeCreatedField.setDataType("number");
+        timeCreatedField.setIndexingMode("FULLTEXT_KEY");
+        //
+        DataField timeModifiedField = new DataField("time_modified");
+        timeModifiedField.setDataType("number");
+        timeModifiedField.setIndexingMode("FULLTEXT_KEY");
         //
         for (String typeId : dms.getTopicTypeIds()) {
             dms.addDataField(typeId, timeCreatedField);
