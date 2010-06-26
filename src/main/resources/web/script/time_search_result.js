@@ -1,3 +1,5 @@
+// FIXME: not in use. File to be dropped.
+
 function TimeSearchResult() {
 }
 

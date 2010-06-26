@@ -1,7 +1,5 @@
 function dm3_time() {
 
-    // FIXME: doctype time_search_result not in use
-    doctype_implementation("/de.deepamehta.3-time/script/time_search_result.js")
     css_stylesheet("/de.deepamehta.3-time/style/dm3-time.css")
 
 
@@ -32,7 +30,7 @@ function dm3_time() {
             var upper_date = new Date().getTime()
             var lower_date = upper_date - mode_item.value * 24 * 60 * 60 * 1000
             var query = "[" + lower_date + " TO " + upper_date + "]"
-            return dms.search_topics(undefined, query, "time_modified", true)
+            return dmc.search_topics(undefined, query, "time_modified", true)
         }
     }
 
