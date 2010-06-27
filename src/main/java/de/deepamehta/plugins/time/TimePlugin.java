@@ -3,7 +3,7 @@ package de.deepamehta.plugins.time;
 import de.deepamehta.core.model.DataField;
 import de.deepamehta.core.model.Topic;
 import de.deepamehta.core.model.TopicType;
-import de.deepamehta.core.plugin.DeepaMehtaPlugin;
+import de.deepamehta.core.service.Plugin;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 
 
-public class TimePlugin extends DeepaMehtaPlugin {
+public class TimePlugin extends Plugin {
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
