@@ -56,7 +56,7 @@ public class TimePlugin extends Plugin {
     }
 
     @Override
-    public void preUpdateHook(Topic topic) {
+    public void preUpdateHook(Topic topic, Map<String, Object> newProperties) {
         long time = System.currentTimeMillis();
         topic.setProperty("http://www.deepamehta.de/core/property/DateModified", time);
     }
