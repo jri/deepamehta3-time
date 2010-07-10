@@ -17,12 +17,12 @@ public class Migration1 extends Migration {
         // TODO: Avoid this code doubling by providing a "update type definition" facility.
         //
         DataField timeCreatedField = new DataField("Date Created");
-        timeCreatedField.setUri("http://www.deepamehta.de/core/property/DateCreated");
+        timeCreatedField.setUri("de/deepamehta/core/property/DateCreated");
         timeCreatedField.setDataType("number");
         timeCreatedField.setIndexingMode("FULLTEXT_KEY");
         //
         DataField timeModifiedField = new DataField("Date Modified");
-        timeModifiedField.setUri("http://www.deepamehta.de/core/property/DateModified");
+        timeModifiedField.setUri("de/deepamehta/core/property/DateModified");
         timeModifiedField.setDataType("number");
         timeModifiedField.setIndexingMode("FULLTEXT_KEY");
         //

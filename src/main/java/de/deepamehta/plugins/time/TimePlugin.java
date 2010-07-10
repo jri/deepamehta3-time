@@ -27,7 +27,7 @@ public class TimePlugin extends Plugin {
     @Override
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
         //
-        if (topic.typeUri.equals("http://www.deepamehta.de/core/topictype/TopicType")) {
+        if (topic.typeUri.equals("de/deepamehta/core/topictype/TopicType")) {
             // Add "Date Created" and "Date Modified" data fields to the topic type being created.
             // Note: Topic types created before the time plugin was activated get these fields through the initial
             // migration. See de.deepamehta.plugins.time.migrations.Migration1
@@ -35,12 +35,12 @@ public class TimePlugin extends Plugin {
             // TODO: Avoid this code doubling by providing a "update type definition" facility.
             //
             DataField timeCreatedField = new DataField("Date Created");
-            timeCreatedField.setUri("http://www.deepamehta.de/core/property/DateCreated");
+            timeCreatedField.setUri("de/deepamehta/core/property/DateCreated");
             timeCreatedField.setDataType("number");
             timeCreatedField.setIndexingMode("FULLTEXT_KEY");
             //
             DataField timeModifiedField = new DataField("Date Modified");
-            timeModifiedField.setUri("http://www.deepamehta.de/core/property/DateModified");
+            timeModifiedField.setUri("de/deepamehta/core/property/DateModified");
             timeModifiedField.setDataType("number");
             timeModifiedField.setIndexingMode("FULLTEXT_KEY");
             //
@@ -51,21 +51,21 @@ public class TimePlugin extends Plugin {
         // add a timestamp to the topic being created
         logger.info("Adding timestamp to " + topic);
         long time = System.currentTimeMillis();
-        topic.setProperty("http://www.deepamehta.de/core/property/DateCreated", time);
-        topic.setProperty("http://www.deepamehta.de/core/property/DateModified", time);
+        topic.setProperty("de/deepamehta/core/property/DateCreated", time);
+        topic.setProperty("de/deepamehta/core/property/DateModified", time);
     }
 
     @Override
     public void preUpdateHook(Topic topic, Map<String, Object> newProperties) {
         long time = System.currentTimeMillis();
-        topic.setProperty("http://www.deepamehta.de/core/property/DateModified", time);
+        topic.setProperty("de/deepamehta/core/property/DateModified", time);
     }
 
     // ---
 
     @Override
     public void providePropertiesHook(Topic topic) {
-        topic.setProperty("http://www.deepamehta.de/core/property/DateModified",
-            dms.getTopicProperty(topic.id, "http://www.deepamehta.de/core/property/DateModified"));
+        topic.setProperty("de/deepamehta/core/property/DateModified",
+            dms.getTopicProperty(topic.id, "de/deepamehta/core/property/DateModified"));
     }
 }

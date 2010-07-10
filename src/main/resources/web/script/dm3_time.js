@@ -30,12 +30,12 @@ function dm3_time() {
             var upper_date = new Date().getTime()
             var lower_date = upper_date - mode_item.value * 24 * 60 * 60 * 1000
             var query = "[" + lower_date + " TO " + upper_date + "]"
-            return dmc.search_topics(undefined, query, "http://www.deepamehta.de/core/property/DateModified", true)
+            return dmc.search_topics(undefined, query, "de/deepamehta/core/property/DateModified", true)
         }
     }
 
     this.render_topic_list_item = function(topic, list_item) {
-        var time = new Date(topic.properties["http://www.deepamehta.de/core/property/DateModified"])
+        var time = new Date(topic.properties["de/deepamehta/core/property/DateModified"])
         // alert(topic.properties.time_modified + " (" + typeof(topic.properties.time_modified) + ") => " + time)
         var time_div = $("<div>").addClass("result-item-time").append(time.toLocaleString())
         return list_item.append(time_div)
