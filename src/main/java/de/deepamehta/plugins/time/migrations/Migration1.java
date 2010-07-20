@@ -16,19 +16,17 @@ public class Migration1 extends Migration {
         //
         // TODO: Avoid this code doubling by providing a "update type definition" facility.
         //
-        DataField timeCreatedField = new DataField("Date Created");
-        timeCreatedField.setUri("de/deepamehta/core/property/DateCreated");
-        timeCreatedField.setDataType("number");
-        timeCreatedField.setIndexingMode("FULLTEXT_KEY");
+        DataField dateCreatedField = new DataField("Date Created", "number");
+        dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
+        dateCreatedField.setIndexingMode("FULLTEXT_KEY");
         //
-        DataField timeModifiedField = new DataField("Date Modified");
-        timeModifiedField.setUri("de/deepamehta/core/property/DateModified");
-        timeModifiedField.setDataType("number");
-        timeModifiedField.setIndexingMode("FULLTEXT_KEY");
+        DataField dateModifiedField = new DataField("Date Modified", "number");
+        dateModifiedField.setUri("de/deepamehta/core/property/DateModified");
+        dateModifiedField.setIndexingMode("FULLTEXT_KEY");
         //
         for (String typeUri : dms.getTopicTypeUris()) {
-            dms.addDataField(typeUri, timeCreatedField);
-            dms.addDataField(typeUri, timeModifiedField);
+            dms.addDataField(typeUri, dateCreatedField);
+            dms.addDataField(typeUri, dateModifiedField);
         }
     }
 }
