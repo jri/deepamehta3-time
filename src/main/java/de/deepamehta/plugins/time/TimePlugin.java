@@ -37,10 +37,12 @@ public class TimePlugin extends Plugin {
             DataField dateCreatedField = new DataField("Date Created", "number");
             dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
             dateCreatedField.setIndexingMode("FULLTEXT_KEY");
+            dateCreatedField.setRendererClass("TimestampFieldRenderer");
             //
             DataField dateModifiedField = new DataField("Date Modified", "number");
             dateModifiedField.setUri("de/deepamehta/core/property/DateModified");
             dateModifiedField.setIndexingMode("FULLTEXT_KEY");
+            dateModifiedField.setRendererClass("TimestampFieldRenderer");
             //
             ((TopicType) topic).addDataField(dateCreatedField);
             ((TopicType) topic).addDataField(dateModifiedField);

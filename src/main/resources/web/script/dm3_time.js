@@ -1,5 +1,6 @@
 function dm3_time() {
 
+    register_field_renderer("/de.deepamehta.3-time/script/timestamp_field_renderer.js")
     css_stylesheet("/de.deepamehta.3-time/style/dm3-time.css")
 
 
@@ -35,9 +36,9 @@ function dm3_time() {
     }
 
     this.render_topic_list_item = function(topic, list_item) {
-        var time = new Date(topic.properties["de/deepamehta/core/property/DateModified"])
+        var timestamp = get_value(topic, "de/deepamehta/core/property/DateModified")
         // alert(topic.properties.time_modified + " (" + typeof(topic.properties.time_modified) + ") => " + time)
-        var time_div = $("<div>").addClass("result-item-time").append(time.toLocaleString())
+        var time_div = $("<div>").addClass("result-item-time").append(format_timestamp(timestamp))
         return list_item.append(time_div)
     }
 } 
