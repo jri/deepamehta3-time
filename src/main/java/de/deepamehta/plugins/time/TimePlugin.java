@@ -20,8 +20,8 @@ public class TimePlugin extends Plugin {
         DataField dateCreatedField = new DataField("Date Created", "number");
         dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
         dateCreatedField.setEditable(false);
-        dateCreatedField.setIndexingMode("FULLTEXT_KEY");
         dateCreatedField.setRendererClass("TimestampFieldRenderer");
+        dateCreatedField.setIndexingMode("FULLTEXT_KEY");
         return dateCreatedField;
     }
 
@@ -29,8 +29,8 @@ public class TimePlugin extends Plugin {
         DataField dateModifiedField = new DataField("Date Modified", "number");
         dateModifiedField.setUri("de/deepamehta/core/property/DateModified");
         dateModifiedField.setEditable(false);
-        dateModifiedField.setIndexingMode("FULLTEXT_KEY");
         dateModifiedField.setRendererClass("TimestampFieldRenderer");
+        dateModifiedField.setIndexingMode("FULLTEXT_KEY");
         return dateModifiedField;
     }
 
