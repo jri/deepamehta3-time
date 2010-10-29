@@ -1,27 +1,20 @@
 package de.deepamehta.plugins.time.migrations;
 
-import de.deepamehta.plugins.time.TimePlugin;
-
-import de.deepamehta.core.model.DataField;
-import de.deepamehta.core.model.TopicType;
 import de.deepamehta.core.service.Migration;
 
 
 
+/**
+ * Distributed with Time plugin v0.4
+ * Used then to add "Date Created" and "Date Modified" data fields to all existing topic types.
+ * <p>
+ * Note: emptied for Time plugin v0.4.2 (in conjunction with deepamehta3-core v0.4.3).
+ * deepamehta3-core v0.4.3 introduced the MODIFY_TOPIC_TYPE hook to allow type modifications in a more consistent
+ * way and without code doubling.
+ */
 public class Migration1 extends Migration {
 
     @Override
     public void run() {
-        // Add "Date Created" and "Date Modified" data fields to all existing topic types.
-        //
-        // Note: Topic types created after the time plugin is activated get these fields through the preCreateHook().
-        // See de.deepamehta.plugins.time.TimePlugin
-        //
-        // TODO: Avoid this code doubling by providing a "update type definition" facility.
-        //
-        for (String typeUri : dms.getTopicTypeUris()) {
-            dms.addDataField(typeUri, TimePlugin.createDateCreatedField());
-            dms.addDataField(typeUri, TimePlugin.createDateModifiedField());
-        }
     }
 }

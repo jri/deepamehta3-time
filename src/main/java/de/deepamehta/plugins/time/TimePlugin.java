@@ -14,29 +14,11 @@ import java.util.logging.Logger;
 
 public class TimePlugin extends Plugin {
 
-    // -------------------------------------------------------------------------------------------------- Static Methods
-
-    public static DataField createDateCreatedField() {
-        DataField dateCreatedField = new DataField("Date Created", "number");
-        dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
-        dateCreatedField.setEditable(false);
-        dateCreatedField.setRendererClass("TimestampFieldRenderer");
-        dateCreatedField.setIndexingMode("FULLTEXT_KEY");
-        return dateCreatedField;
-    }
-
-    public static DataField createDateModifiedField() {
-        DataField dateModifiedField = new DataField("Date Modified", "number");
-        dateModifiedField.setUri("de/deepamehta/core/property/DateModified");
-        dateModifiedField.setEditable(false);
-        dateModifiedField.setRendererClass("TimestampFieldRenderer");
-        dateModifiedField.setIndexingMode("FULLTEXT_KEY");
-        return dateModifiedField;
-    }
-
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
     private Logger logger = Logger.getLogger(getClass().getName());
+
+    // -------------------------------------------------------------------------------------------------- Public Methods
 
 
 
@@ -46,22 +28,11 @@ public class TimePlugin extends Plugin {
 
 
 
+    /**
+     * Sets a timestamp at every topic being created.
+     */
     @Override
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
-        // 1) extend type definition
-        if (topic.typeUri.equals("de/deepamehta/core/topictype/TopicType")) {
-            // Add "Date Created" and "Date Modified" data fields to the topic type being created.
-            //
-            // Note: Topic types created before the time plugin was activated get these fields through the initial
-            // migration. See de.deepamehta.plugins.time.migrations.Migration1
-            //
-            // TODO: Avoid this code doubling by providing a "update type definition" facility.
-            //
-            ((TopicType) topic).addDataField(createDateCreatedField());
-            ((TopicType) topic).addDataField(createDateModifiedField());
-        }
-        //
-        // 2) set timestamp
         logger.info("Setting timestamp of " + topic);
         long time = System.currentTimeMillis();
         TopicType type = dms.getTopicType(topic.typeUri);
@@ -74,6 +45,9 @@ public class TimePlugin extends Plugin {
         }
     }
 
+    /**
+     * Updates the timestamp for every topic being modified.
+     */
     @Override
     public void preUpdateHook(Topic topic, Map<String, Object> newProperties) {
         long time = System.currentTimeMillis();
@@ -86,5 +60,29 @@ public class TimePlugin extends Plugin {
     public void providePropertiesHook(Topic topic) {
         topic.setProperty("de/deepamehta/core/property/DateModified",
             dms.getTopicProperty(topic.id, "de/deepamehta/core/property/DateModified"));
+    }
+
+    // ---
+
+    /**
+     * Adds "Date Created" and "Date Modified" data fields to all topic types.
+     */
+    @Override
+    public void modifyTopicTypeHook(TopicType topicType) {
+        //
+        DataField dateCreatedField = new DataField("Date Created", "number");
+        dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
+        dateCreatedField.setEditable(false);
+        dateCreatedField.setRendererClass("TimestampFieldRenderer");
+        dateCreatedField.setIndexingMode("FULLTEXT_KEY");
+        //
+        DataField dateModifiedField = new DataField("Date Modified", "number");
+        dateModifiedField.setUri("de/deepamehta/core/property/DateModified");
+        dateModifiedField.setEditable(false);
+        dateModifiedField.setRendererClass("TimestampFieldRenderer");
+        dateModifiedField.setIndexingMode("FULLTEXT_KEY");
+        //
+        topicType.addDataField(dateCreatedField);
+        topicType.addDataField(dateModifiedField);
     }
 }
