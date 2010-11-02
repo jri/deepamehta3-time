@@ -35,7 +35,7 @@ public class TimePlugin extends Plugin {
     public void preCreateHook(Topic topic, Map<String, String> clientContext) {
         logger.info("Setting timestamp of " + topic);
         long time = System.currentTimeMillis();
-        TopicType type = dms.getTopicType(topic.typeUri);
+        TopicType type = dms.getTopicType(topic.typeUri, null);   // clientContext=null
         // Note: the timestamp data fields might be (interactively) removed meanwhile
         if (type.hasDataField("de/deepamehta/core/property/DateCreated")) {
             topic.setProperty("de/deepamehta/core/property/DateCreated", time);
