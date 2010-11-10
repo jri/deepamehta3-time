@@ -68,7 +68,7 @@ public class TimePlugin extends Plugin {
      * Adds "Date Created" and "Date Modified" data fields to all topic types.
      */
     @Override
-    public void modifyTopicTypeHook(TopicType topicType) {
+    public void modifyTopicTypeHook(TopicType topicType, Map<String, String> clientContext) {
         //
         DataField dateCreatedField = new DataField("Date Created", "number");
         dateCreatedField.setUri("de/deepamehta/core/property/DateCreated");
